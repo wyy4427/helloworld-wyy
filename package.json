@@ -1,0 +1,11 @@
+{
+  "name": "helloworld-wyy",
+  "version": "1.0.0",
+  "description": "我的第一个AI开发的网站（Node.js + Vercel）",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node api/index.js"
+  },
+  "license": "MIT"
+}
