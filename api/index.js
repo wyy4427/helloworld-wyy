@@ -1,12 +1,9 @@
 // =====================================================
-// HelloWorld 网站 - Vercel Serverless Function
-// 访问根路径 / 时，由本函数返回页面；页面上的时间由服务器端渲染。
+// HelloWorld 网站 - Vercel Function（Web Standard fetch 写法）
+// 访问根路径 / 时返回页面；页面时间由服务器端渲染。
 // =====================================================
 
-export default function handler(req, res) {
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-
-  // 服务器当前时间（北京时间，24 小时制）
+function renderPage() {
   const now = new Date();
   const timeStr = now.toLocaleString('zh-CN', {
     timeZone: 'Asia/Shanghai',
@@ -19,7 +16,7 @@ export default function handler(req, res) {
     second: '2-digit',
   });
 
-  const html = `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -57,6 +54,14 @@ export default function handler(req, res) {
   </div>
 </body>
 </html>`;
-
-  res.status(200).send(html);
 }
+
+export default {
+  fetch(request) {
+    const html = renderPage();
+    return new Response(html, {
+      status: 200,
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    });
+  },
+};
